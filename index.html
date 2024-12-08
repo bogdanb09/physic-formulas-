@@ -91,10 +91,10 @@
   <table id="formulas-table">
       <thead>
         <tr>
-                         <th>Name</th>
-                <th>Symbol</th>
-                <th>Unit</th>
-                <th>Formula</th>
+            <th onclick="sortTable(0)">Name</th>
+          <th onclick="sortTable(1)">Symbol</th>
+          <th onclick="sortTable(2)">Unit</th>
+          <th onclick="sortTable(3)">Formula</th>
             </tr>
         </thead>
         <tbody>
@@ -534,6 +534,39 @@
                 tr[i].style.display = match ? "" : "none";
             }
         }
+
+       function sortTable(columnIndex) {
+        const table = document.getElementById("formulas-table");
+        const rows = Array.from(table.rows).slice(1); // Skip header row
+        const isAscending = table.rows[0].cells[columnIndex].classList.contains('asc');
+
+        // Remove the 'asc' class from all headers
+        for (let i = 0; i < table.rows[0].cells.length; i++) {
+          table.rows[0].cells[i].classList.remove('asc', 'desc');
+        }
+
+        // Toggle sorting direction
+        const newDirection = isAscending ? 'desc' : 'asc';
+        table.rows[0].cells[columnIndex].classList.add(newDirection);
+
+        // Sort rows based on the selected column
+        rows.sort((a, b) => {
+          const aText = a.cells[columnIndex].innerText.toLowerCase();
+          const bText = b.cells[columnIndex].innerText.toLowerCase();
+
+          if (aText < bText) {
+            return isAscending ? -1 : 1;
+          }
+          if (aText > bText) {
+            return isAscending ? 1 : -1;
+          }
+          return 0;
+        });
+
+        // Re-append sorted rows to the table
+        rows.forEach(row => table.appendChild(row));
+      }
+      
   </script>
 </body>
 </html>
