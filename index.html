@@ -89,34 +89,6 @@
 <div class="search-container">
     <input type="text" id="search" placeholder="Search formulas..." onkeyup="searchTable()">
 </div>
-  <script>
-    function searchTable() {
-        const searchTerm = document.getElementById('search').value.toLowerCase();
-        const table = document.getElementById('formulas-table');
-        const rows = table.getElementsByTagName('tr');
-
-        for (let i = 1; i < rows.length; i++) { // Skip the header row
-            const row = rows[i];
-            const columns = row.getElementsByTagName('td');
-            let match = false;
-
-            // Loop through each column in the row
-            for (let j = 0; j < columns.length; j++) {
-                const cell = columns[j];
-                if (cell.innerText.toLowerCase().includes(searchTerm)) {
-                    match = true;
-                    break; // No need to continue checking other columns
-                }
-            }
-
-            // Show or hide the row based on the search result
-            if (match) {
-                row.style.display = '';
-            } else {
-                row.style.display = 'none';
-            }
-        }
-    }
 </script>
   <div class="container">
   <table id="formulas-table">
