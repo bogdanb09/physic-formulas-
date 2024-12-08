@@ -88,6 +88,30 @@
   </div>
 <div class="search-container">
     <input type="text" id="search" placeholder="Search formulas..." onkeyup="searchTable()">
+   function searchTable() {
+            const input = document.getElementById('searchBar');
+            const filter = input.value.toLowerCase();
+            const table = document.getElementById('formulaTable');
+            const rows = table.getElementsByTagName('tr');
+
+            for (let i = 1; i < rows.length; i++) { // start from 1 to skip the header row
+                const cells = rows[i].getElementsByTagName('td');
+                let matchFound = false;
+
+                for (let j = 0; j < cells.length; j++) {
+                    if (cells[j].innerText.toLowerCase().includes(filter)) {
+                        matchFound = true;
+                        break;
+                    }
+                }
+
+                if (matchFound) {
+                    rows[i].style.display = '';
+                } else {
+                    rows[i].style.display = 'none';
+                }
+            }
+        }
 </div>
 </script>
   <div class="container">
